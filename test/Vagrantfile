@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "chef/centos-7.0"
+  #config.vm.box = "chef/debian-7.6"
+  #config.vm.box = "ubuntu/trusty64"
+
+  config.vm.network "public_network"
+
+  config.vm.synced_folder "./states", "/srv/salt"
+  config.vm.synced_folder "./pillar", "/srv/pillar"
+
+  config.vm.provision :salt do |salt|
+    salt.minion_config = "./minion_config"
+    #salt.run_highstate = true
+    salt.run_highstate = false
+  end
+end

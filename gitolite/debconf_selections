@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+cat >/tmp/gitolite-debconf-selections <<EOF
+gitolite3 gitolite3/gituser  string git
+gitolite3 gitolite3/gitdir   string /var/lib/gitolite3
+gitolite3 gitolite3/adminkey string $ADMIN_PUBKEY
+EOF
+/usr/bin/debconf-set-selections /tmp/gitolite-debconf-selections
+dpkg-reconfigure -fnoninteractive gitolite3
