@@ -17,7 +17,6 @@ gitolite-debconf-selections:
   cmd.wait_script:
     - name: salt://gitolite/debconf_selections
     - shell: /bin/bash
-    - template: jinja
     - env:
       - GIT_USER: {{ git_user }}
       - ADMIN_PUBKEY: |
