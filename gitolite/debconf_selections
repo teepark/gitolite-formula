@@ -2,7 +2,7 @@
 set -e
 
 cat >/tmp/gitolite-debconf-selections <<EOF
-gitolite3 gitolite3/gituser  string git
+gitolite3 gitolite3/gituser  string $GIT_USER
 gitolite3 gitolite3/gitdir   string /var/lib/gitolite3
 gitolite3 gitolite3/adminkey string $ADMIN_PUBKEY
 EOF
