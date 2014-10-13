@@ -1,3 +1,5 @@
 .*.sw?
 */.*.sw?
 */*/.*.sw?
+
+test/.vagrant/*
