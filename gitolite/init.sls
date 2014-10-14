@@ -54,6 +54,8 @@ gitolite-initial-setup:
   cmd.wait:
     - name: gitolite setup -pk /var/lib/gitolite3/admin.pub
     - user: {{ git_user }}
+    - require:
+      - cmd: gitolite-git-homedir-ownership
     - watch:
       - file: gitolite-admin-pubkey
 
