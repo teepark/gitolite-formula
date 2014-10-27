@@ -3,10 +3,10 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  #config.vm.box = "chef/debian-7.6"
+  config.vm.box = "chef/debian-7.6"
   #config.vm.box = "ubuntu/trusty64"
   #config.vm.box = "chef/centos-6.5"
-  config.vm.box = "chef/centos-7.0"
+  #config.vm.box = "chef/centos-7.0"
 
   config.vm.network "public_network"
 
@@ -16,12 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :salt do |salt|
     salt.minion_config = "./minion_config"
-
-    # stop highstates until 2014.01.12 drops
-    # in the meantime, after provisioning but before a highstate, run :
-    # sudo wget --no-check-certificate -O $(python -c 'import os, salt; print "%s/pillar/__init__.py" % os.path.dirname(salt.__file__)') https://raw.githubusercontent.com/semarie/salt/edbe6f9d4f454442e09dbdc7bc406a0f2157c68e/salt/pillar/__init__.py
-
-    #salt.run_highstate = true
-    salt.run_highstate = false
+    salt.run_highstate = true
   end
 end
