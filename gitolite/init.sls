@@ -1,7 +1,6 @@
 {% set git_user = salt['pillar.get']('gitolite:git_user', 'git') %}
 
-{% if grains['os_family'] == 'Debian' %}
-{% if grains['oscodename'] == 'wheezy' %}
+{% if grains['os_family'] == 'Debian' and grains['oscodename'] == 'wheezy' %}
 
 wheezy-backports-for-gitolite:
   pkgrepo.managed:
@@ -11,22 +10,7 @@ wheezy-backports-for-gitolite:
     - require_in:
       - pkg: gitolite-pkg
 
-{% endif %} # wheezy
-
-gitolite-debconf-selections:
-  cmd.wait_script:
-    - name: salt://gitolite/debconf_selections
-    - shell: /bin/bash
-    - env:
-      - GIT_USER: {{ git_user }}
-      - ADMIN_PUBKEY: |
-          {{ salt['pillar.get']('gitolite:admin_pubkey') }}
-    - watch:
-      - pkg: gitolite-pkg
-
-{% endif %} # debian family
-
-{% if grains['os_family'] == 'RedHat' %}
+{% endif %}
 
 gitolite-git-user:
   user.present:
@@ -58,8 +42,6 @@ gitolite-initial-setup:
       - cmd: gitolite-git-homedir-ownership
     - watch:
       - file: gitolite-admin-pubkey
-
-{% endif %}
 
 gitolite-pkg:
   pkg.installed:
